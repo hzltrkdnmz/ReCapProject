@@ -11,15 +11,30 @@ namespace ConsoleUI
         {
             //MinPrice();
 
+            CarDto();
+           // ColorTest();
+
+        }
+
+        private static void ColorTest()
+        {
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+            foreach (var color in colorManager.GetAll())
+            {
+                Console.WriteLine(color.ColorName);
+            }
+        }
+
+        private static void CarDto()
+        {
             CarManager carManager = new CarManager(new EfCarDal());
 
-            foreach (var car in carManager.GetAll())
+            foreach (var car in carManager.GetCarDetails())
             {
-                Console.WriteLine("Description: " + car.Description + " BrandId: " + car.BrandId + " ColorId: " + car.ColorId + " DailyPrice: " + car.DailyPrice + " ModelYear: " + car.ModelYear);
+                Console.WriteLine( "CarName: "+car.CarName+ " Color: " + car.ColorName + " Brand: " + car.BrandName+"DailyPrice: "+car.DailyPrice);
 
 
             }
-
         }
 
         private static void MinPrice()
