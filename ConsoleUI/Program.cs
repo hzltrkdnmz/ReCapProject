@@ -9,7 +9,7 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            MinPrice();
+            //MinPrice();
 
             CarManager carManager = new CarManager(new EfCarDal());
 
