@@ -1,6 +1,7 @@
 ﻿using Business.Concreate;
 using DataAccess.Concreate.EntityFramework;
 using DataAccess.Concreate.InMemory;
+using Entities.Concreate;
 using System;
 
 namespace ConsoleUI
@@ -11,14 +12,19 @@ namespace ConsoleUI
         {
             //MinPrice();
 
-            CarDto();
-           // ColorTest();
+            //CarDto();
+            ColorTest();
 
         }
 
         private static void ColorTest()
         {
             ColorManager colorManager = new ColorManager(new EfColorDal());
+
+            Color addColor = new Color() { ColorId = 4, ColorName = "Mor" };
+          
+            colorManager.Add(addColor);
+
             foreach (var color in colorManager.GetAll())
             {
                 Console.WriteLine(color.ColorName);

@@ -5,6 +5,8 @@ using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Business.Concreate
 {
@@ -38,6 +40,22 @@ namespace Business.Concreate
         public List<CarDetailDto> GetCarDetails()
         {
             return _carDal.GetCarDetails();
+        }
+
+        public void Add(Car car)
+        {
+            _carDal.Add(car);
+        }
+
+        public void Delete(Car car)
+        {
+            _carDal.Delete(car);
+          
+        }
+
+        public void Update(Car car)
+        {
+            _carDal.Update(car);
         }
     }
 
