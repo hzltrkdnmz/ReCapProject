@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.Linq.Expressions;
+using Core.Utilities.Results;
+using Business.Constants;
 
 namespace Business.Concreate
 {
@@ -18,44 +20,65 @@ namespace Business.Concreate
             _carDal = carDal;
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll();
+            
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarAdded);
 
         }
 
-        public List<Car> GetCarsByBrandId(int id)
+        public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
-            return _carDal.GetAll(c => c.BrandId == id);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id));
         }
-        public List<Car> GetCarsByColorId(int id)
+        public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
-            return _carDal.GetAll(c => c.ColorId == id);
+    
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == id));
         }
-        public List<Car> GetByDailyPrice(decimal min)
+        public IDataResult<List<Car>> GetByDailyPrice(decimal min)
         {
-            return _carDal.GetAll(c => c.DailyPrice > min);
-        }
-
-        public List<CarDetailDto> GetCarDetails()
-        {
-            return _carDal.GetCarDetails();
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.DailyPrice > min));
         }
 
-        public void Add(Car car)
+        public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+        }
+
+        public IResult Add(Car car)
+        {
+            if (car.CarName.Length < 3)
+            {
+                return new ErrorResult();
+
+            }
             _carDal.Add(car);
+            return new SuccessResult();
+           
         }
 
-        public void Delete(Car car)
+        public IResult Delete(Car car)
         {
+            if (_carDal.Get(c => c.Id ==car.Id)==null)
+            {
+                return new ErrorResult();
+            }
             _carDal.Delete(car);
+            return new SuccessResult();
+           
           
         }
 
-        public void Update(Car car)
+        public IResult Update(Car car)
         {
+            if (_carDal.Get(c => c.Id == car.Id) == null)
+            {
+                return new ErrorResult();
+            }
             _carDal.Update(car);
+            return new SuccessResult();
+            
         }
     }
 

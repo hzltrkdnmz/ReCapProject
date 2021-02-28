@@ -12,8 +12,8 @@ namespace ConsoleUI
         {
             //MinPrice();
 
-            //CarDto();
-            ColorTest();
+            CarDto();
+            //ColorTest();
 
         }
 
@@ -21,11 +21,11 @@ namespace ConsoleUI
         {
             ColorManager colorManager = new ColorManager(new EfColorDal());
 
-            Color addColor = new Color() { ColorId = 4, ColorName = "Mor" };
+            //Color addColor = new Color() { ColorId = 5, ColorName = "Yeşil" };
           
-            colorManager.Add(addColor);
+            //colorManager.Add(addColor);
 
-            foreach (var color in colorManager.GetAll())
+            foreach (var color in colorManager.GetAll().Data)
             {
                 Console.WriteLine(color.ColorName);
             }
@@ -35,19 +35,25 @@ namespace ConsoleUI
         {
             CarManager carManager = new CarManager(new EfCarDal());
 
-            foreach (var car in carManager.GetCarDetails())
+            var result = carManager.GetCarDetails();
+            if (result.Success)
             {
-                Console.WriteLine( "CarName: "+car.CarName+ " Color: " + car.ColorName + " Brand: " + car.BrandName+"DailyPrice: "+car.DailyPrice);
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine("CarName: " + car.CarName + " Color: " + car.ColorName + " Brand: " + car.BrandName + "DailyPrice: " + car.DailyPrice);
 
+
+                }
 
             }
+           
         }
 
         private static void MinPrice()
         {
             CarManager carManager = new CarManager(new EfCarDal());
 
-            foreach (var car in carManager.GetByDailyPrice(0))
+            foreach (var car in carManager.GetByDailyPrice(0).Data)
             {
                 Console.WriteLine("Description: " + car.Description + " BrandId: " + car.BrandId + " ColorId: " + car.ColorId + " DailyPrice: " + car.DailyPrice + " ModelYear: " + car.ModelYear);
 
