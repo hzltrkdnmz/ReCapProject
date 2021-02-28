@@ -60,7 +60,7 @@ namespace Business.Concreate
 
         public IResult Delete(Car car)
         {
-            if (_carDal.Get(c => c.Id ==car.Id)==null)
+            if (_carDal.Get(c => c.CarId ==car.CarId)==null)
             {
                 return new ErrorResult();
             }
@@ -72,7 +72,7 @@ namespace Business.Concreate
 
         public IResult Update(Car car)
         {
-            if (_carDal.Get(c => c.Id == car.Id) == null)
+            if (_carDal.Get(c => c.CarId == car.CarId) == null)
             {
                 return new ErrorResult();
             }
