@@ -21,7 +21,7 @@ namespace ConsoleUI
 
             //GetUser();
 
-            AddCustomer();
+           // AddCustomer();
 
             GetCustomer();
         }

@@ -26,7 +26,10 @@ namespace Business.Concreate
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.CarAdded);
 
         }
-
+        public IDataResult<List<Car>> GetById(int id)
+        {
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.CarId == id));
+        }
         public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == id));
