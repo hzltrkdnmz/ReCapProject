@@ -11,6 +11,7 @@ using Core.Utilities.Results;
 using Business.Constants;
 using Core.CrossCuttingConcerns.Validation;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 
 namespace Business.Concreate
 {
@@ -51,10 +52,9 @@ namespace Business.Concreate
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            ValidationTool.Validate(new CarValidator(), car);
-
             _carDal.Add(car);
             return new SuccessResult();
            
