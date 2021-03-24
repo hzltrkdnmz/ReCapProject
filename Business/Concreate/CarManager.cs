@@ -9,6 +9,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using Core.Utilities.Results;
 using Business.Constants;
+using Core.CrossCuttingConcerns.Validation;
+using Business.ValidationRules.FluentValidation;
 
 namespace Business.Concreate
 {
@@ -51,11 +53,8 @@ namespace Business.Concreate
 
         public IResult Add(Car car)
         {
-            if (car.CarName.Length < 3)
-            {
-                return new ErrorResult();
+            ValidationTool.Validate(new CarValidator(), car);
 
-            }
             _carDal.Add(car);
             return new SuccessResult();
            
@@ -63,10 +62,6 @@ namespace Business.Concreate
 
         public IResult Delete(Car car)
         {
-            if (_carDal.Get(c => c.CarId ==car.CarId)==null)
-            {
-                return new ErrorResult();
-            }
             _carDal.Delete(car);
             return new SuccessResult();
            
@@ -75,10 +70,7 @@ namespace Business.Concreate
 
         public IResult Update(Car car)
         {
-            if (_carDal.Get(c => c.CarId == car.CarId) == null)
-            {
-                return new ErrorResult();
-            }
+          
             _carDal.Update(car);
             return new SuccessResult();
             
